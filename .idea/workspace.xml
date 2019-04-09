@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ba928d9-4c45-406e-a1bd-a1f4930a8648" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -47,7 +47,7 @@
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="12" selection-start-column="12" selection-end-column="12" />
+              <caret column="5" selection-start-column="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -174,18 +174,18 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1554726111948</updated>
-      <workItem from="1554726113221" duration="18118000" />
+      <workItem from="1554726113221" duration="18247000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18118000" />
+    <option name="totallyTimeSpent" value="18247000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
@@ -193,7 +193,7 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Quokka" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.32955974" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.32955974" />
       <window_info id="Favorites" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -250,7 +250,7 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="12" selection-start-column="12" selection-end-column="12" />
+          <caret column="5" selection-start-column="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
