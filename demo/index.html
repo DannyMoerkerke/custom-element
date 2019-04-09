@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  </head>
+  <body>
+    <demo-element></demo-element>
+
+    <script type="module" src="demo/demo-element.js"></script>
+    <script>
+      customElements.whenDefined('demo-element')
+      .then(() => {
+        const element = document.querySelector('demo-element');
+
+        element.setState({
+          title: 'demo2',
+          data: {
+            items: ['foo', 'bar'],
+          },
+          user: {
+            name: 'danny',
+            address: {
+              city: 'amsterdam'
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
