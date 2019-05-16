@@ -1,3 +1,4 @@
+
 export class CustomElement extends HTMLElement {
   constructor() {
     super();
@@ -17,6 +18,7 @@ export class CustomElement extends HTMLElement {
     this.state = new Proxy(this, handler);
   }
 
+
   updateBindings(prop, value = '') {
     const bindings = [
       ...this.shadowRoot.querySelectorAll(`[data-bind^="${prop}"]`),
@@ -28,12 +30,27 @@ export class CustomElement extends HTMLElement {
       const bindProp = dataProp.includes(':') ? dataProp.split(':').shift() : dataProp;
       const bindValue = dataProp.includes('.') ? dataProp.split('.').slice(1).reduce((obj, p) => obj[p], value) : value;
 
+      const target = [...this.shadowRoot.querySelectorAll(node.tagName)].find(el => el === node);
       if(this.isObject(bindValue) || this.isArray(bindValue)) {
-        const target = this.shadowRoot.querySelector(node.tagName);
-        target[bindProp] = bindValue;
+
+        if(dataProp.includes(':') && typeof target.setState === 'function') {
+          target.setState({
+            [`${bindProp}`]: bindValue
+          });
+        }
+        else {
+          target[bindProp] = bindValue;
+        }
       }
       else {
-        node.textContent = bindValue.toString();
+        if(dataProp.includes(':') && typeof target.setState === 'function') {
+          target.setState({
+            [`${bindProp}`]: bindValue
+          });
+        }
+        else {
+          node.textContent = bindValue.toString();
+        }
       }
     });
   }
@@ -41,7 +58,7 @@ export class CustomElement extends HTMLElement {
   setState(newState) {
     Object.entries(newState)
     .forEach(([key, value]) => {
-      this.state[key] = this.isObject(this.state[key]) ? {...this.state[key], ...value} : value;
+      this.state[key] = this.isObject(this.state[key]) && this.isObject(value)? {...this.state[key], ...value} : value;
     });
   }
 
@@ -50,18 +67,8 @@ export class CustomElement extends HTMLElement {
   }
 
   isObject(obj) {
-    return typeof obj === 'object' && !this.isArray(obj);
+    return Object.prototype.toString.call(obj) === '[object Object]';
   }
-
-  html(templateObject, ...substs) {
-    const raw = templateObject.raw;
-
-    let result = substs.reduce((acc, subst, i) => `${acc}${raw[i]}${subst}`, '');
-
-    result += raw[raw.length - 1];
-
-    return result;
-  };
 
   show() {
     this.style.display = '';
@@ -73,3 +80,4 @@ export class CustomElement extends HTMLElement {
     this.setAttribute('hidden', '');
   }
 }
+

@@ -5,11 +5,20 @@
   "main": "src/custom-element.js",
   "scripts": {
     "start": "ws -p 8080 --spa demo/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ws -p 8080 --spa test/index.html",
+    "test:headless": "concurrently \"npm test\" \"sleep 1 && mocha-headless-chrome -f http://localhost:8080/\""
   },
   "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
   "license": "ISC",
   "devDependencies": {
-    "local-web-server": "^2.6.1"
+    "chai": "^4.2.0",
+    "concurrently": "^4.1.0",
+    "local-web-server": "^2.6.1",
+    "mocha": "^6.1.2",
+    "mocha-headless-chrome": "^2.0.2",
+    "sinon": "^7.3.1"
+  },
+  "dependencies": {
+    "typescript": "^3.4.5"
   }
 }
