@@ -142,6 +142,20 @@ describe('custom-element', () => {
     assert.equal(element.isObject(new WeakSet()), false);
   });
 
+  it('should select the correct DOM element', () => {
+    const actual = element.select('#name');
+    const expected = element.shadowRoot.querySelector('#name');
+
+    assert.equal(actual, expected);
+  });
+
+  it('should select the correct collection of DOM elements', () => {
+    const actual = element.shadowRoot.querySelectorAll('p');
+    const expected = element.selectAll('p');
+
+    assert.deepEqual(actual, expected);
+  });
+
   it('should hide the component when "hide()" is called', () => {
     element.hide();
 

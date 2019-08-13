@@ -3,55 +3,25 @@ export class CustomElement extends HTMLElement {
   constructor() {
     super();
 
-    const handler = {
-      get(target, prop) {
-        return target[prop];
-      },
-      set(target, prop, value) {
-        target[prop] = value;
-        target.updateBindings(prop, value);
-
-        return true;
-      }
-    };
-
-    this.state = new Proxy(this, handler);
+    this.state = {};
   }
 
+  isCustomElement(element) {
+    return Object.getPrototypeOf(customElements.get(element.tagName.toLowerCase())).name === 'CustomElement';
+  }
 
   updateBindings(prop, value = '') {
-    const bindings = [
-      ...this.shadowRoot.querySelectorAll(`[data-bind^="${prop}"]`),
-      ...this.shadowRoot.querySelectorAll(`[data-bind$=":${prop}"]`)
-    ];
+    const bindings = [...this.selectAll(`[data-bind$="${prop}"]`)];
 
     bindings.forEach(node => {
       const dataProp = node.dataset.bind;
       const bindProp = dataProp.includes(':') ? dataProp.split(':').shift() : dataProp;
       const bindValue = dataProp.includes('.') ? dataProp.split('.').slice(1).reduce((obj, p) => obj[p], value) : value;
+      const target = [...this.selectAll(node.tagName)].find(el => el === node);
+      const isStateUpdate = dataProp.includes(':') && this.isCustomElement(target);
 
-      const target = [...this.shadowRoot.querySelectorAll(node.tagName)].find(el => el === node);
-      if(this.isObject(bindValue) || this.isArray(bindValue)) {
-
-        if(dataProp.includes(':') && typeof target.setState === 'function') {
-          target.setState({
-            [`${bindProp}`]: bindValue
-          });
-        }
-        else {
-          target[bindProp] = bindValue;
-        }
-      }
-      else {
-        if(dataProp.includes(':') && typeof target.setState === 'function') {
-          target.setState({
-            [`${bindProp}`]: bindValue
-          });
-        }
-        else {
-          node.textContent = bindValue.toString();
-        }
-      }
+      isStateUpdate ? target.setState({[`${bindProp}`]: bindValue}) :
+      this.isArray(bindValue) ? target[bindProp] = bindValue : node.textContent = bindValue.toString();
     });
   }
 
@@ -59,7 +29,16 @@ export class CustomElement extends HTMLElement {
     Object.entries(newState)
     .forEach(([key, value]) => {
       this.state[key] = this.isObject(this.state[key]) && this.isObject(value)? {...this.state[key], ...value} : value;
+
+      const bindKey = this.isObject(value) ? this.getBindKey(key, value) : key;
+      const bindKeys = this.isArray(bindKey) ? bindKey : [bindKey];
+
+      bindKeys.forEach(key => this.updateBindings(key, value));
     });
+  }
+
+  getBindKey(key, obj) {
+    return Object.keys(obj).map(k => this.isObject(obj[k]) ? `${key}.${this.getBindKey(k, obj[k])}` : `${key}.${k}`);
   }
 
   isArray(arr) {
@@ -68,6 +47,14 @@ export class CustomElement extends HTMLElement {
 
   isObject(obj) {
     return Object.prototype.toString.call(obj) === '[object Object]';
+  }
+
+  select(selector) {
+    return this.shadowRoot.querySelector(selector);
+  }
+
+  selectAll(selector) {
+    return this.shadowRoot.querySelectorAll(selector);
   }
 
   show() {
