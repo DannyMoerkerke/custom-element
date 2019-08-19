@@ -15,6 +15,9 @@
 
     <demo-element></demo-element>
 
+    <p>
+      The state of &lt;demo-element&gt;&lt;/demo-element&gt; was set with:
+    </p>
     <pre>
       element.setState({
         title: 'Data binding for Web Components',
@@ -26,6 +29,24 @@
         },
         data: {
           items: ['foo', 'bar'],
+        }
+      });
+    </pre>
+
+    <p>
+      To update its state get a reference to it and call its <code>setState</code> method, for example:
+    </p>
+
+    <pre>
+      const element = document.querySelector('demo-element');
+
+      element.setState({
+        title: 'another title',
+        user: {
+          name: 'somebody'
+        },
+        data: {
+          items: ['whatever']
         }
       });
     </pre>

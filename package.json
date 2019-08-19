@@ -9,6 +9,14 @@
     "test:headless": "concurrently \"npm test\" \"sleep 1 && mocha-headless-chrome -f http://localhost:8080/\""
   },
   "author": "Danny Moerkerke <danny@dannymoerkerke.nl>",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:DannyMoerkerke/custom-element.git"
+  },
+  "homepage": "https://github.com/DannyMoerkerke/custom-element",
+  "files": [
+    "/src"
+  ],
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.2.0",

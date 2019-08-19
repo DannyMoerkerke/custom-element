@@ -55,13 +55,7 @@ tests from your IDE using [Wallaby.js](https://wallabyjs.com/)
 - iOS Safari 10+
 - Chrome Android 71+
 - Firefox Android 64+
-- Edge 16+ (with polyfill)
 
-
-### Polyfilling Edge 16+
-Refer to `/lib/polyfill-loader.js` to see how the [webcomponentsjs polyfill](https://github.com/webcomponents/webcomponentsjs)
-and the Webpack bundle are loaded. The Webpack bundle only parses the CSS inside Shadow DOM.
-Note that the webpack loader is only suitable for browsers that do not support Shadow DOM.
 
 
 
