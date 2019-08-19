@@ -4,6 +4,8 @@ A base class for Custom Elements which provides simple data binding.
 This is a simple POC to demonstrate how data binding can be easily implemented using Web Components. It is not a 
 replacement for React or other frameworks, nor is it intended to be.
 
+See my [article on medium.com](https://medium.com/@drmoerkerke/https-medium-com-drmoerkerke-data-binding-for-web-components-in-just-a-few-lines-of-code-33f0a46943b3?sk=09dd590e07b3300bae4b63dbb716cc39) for an in depth explanation: 
+
 ### How it works
 Inside the Shadow Root of any Web Component that extends `CustomElement` data binding can be provided through the `data-bind`
 attribute on any HTML element, including other Web Components. Data binding is done through the properties of the `state` object 
