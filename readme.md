@@ -1,7 +1,8 @@
 # Custom Element
 A base class for Custom Elements which provides simple data binding.
 
-This is a simple POC and **NOT** yet production-ready!
+This is a simple POC to demonstrate how data binding can be easily implemented using Web Components. It is not a 
+replacement for React or other frameworks, nor is it intended to be.
 
 ### How it works
 Inside the Shadow Root of any Web Component that extends `CustomElement` data binding can be provided through the `data-bind`
@@ -28,7 +29,14 @@ For example:
 means the property `name` of `<web-component>` is bound to `state.title`.
 
 If `<web-component>` also extends `CustomElement` then its property `state.name` is bound to `state.title`, which allows 
-for multiple levels of data binding.
+for multiple levels of data binding. This is because internally the `setState` method of `<web-component>` will be invoked.
+
+`CustomElement` also provides some convenience methods:
+- `show()`, show the element
+- `hide()`, hide the element
+- `select(selector: string)`, select and element from the component's Shadow DOM (calls `querySelector` internally)
+- `selectAll(selector: string)`, select multiple elements from the component's Shadow DOM (calls `querySelectorAll` internally)
+
 ### Demo
 To run the demo, run `npm install` once and then `npm start` and view the demo on
 [http://localhost:8080/](http://localhost:8080/)

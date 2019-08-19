@@ -17,8 +17,5 @@
     "mocha": "^6.1.2",
     "mocha-headless-chrome": "^2.0.2",
     "sinon": "^7.3.1"
-  },
-  "dependencies": {
-    "typescript": "^3.4.5"
   }
 }
