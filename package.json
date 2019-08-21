@@ -5,7 +5,6 @@
   "main": "dist/custom-element.js",
   "module": "dist/custom-element.es.js",
   "unpkg": "dist/custom-element.umd.js",
-  
   "scripts": {
     "start": "ws -p 8080 --spa demo/index.html",
     "build": "rollup -c",
