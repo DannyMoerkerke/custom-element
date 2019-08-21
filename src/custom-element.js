@@ -1,3 +1,4 @@
+
 export class CustomElement extends HTMLElement {
   constructor() {
     super();
@@ -6,47 +7,29 @@ export class CustomElement extends HTMLElement {
   }
 
   isCustomElement(element) {
-    return (
-      Object.getPrototypeOf(customElements.get(element.tagName.toLowerCase()))
-        .name === "CustomElement"
-    );
+    return Object.getPrototypeOf(customElements.get(element.tagName.toLowerCase())).name === 'CustomElement';
   }
 
-  updateBindings(prop, value = "") {
+  updateBindings(prop, value = '') {
     const bindings = [...this.selectAll(`[data-bind$="${prop}"]`)];
 
     bindings.forEach(node => {
       const dataProp = node.dataset.bind;
-      const bindProp = dataProp.includes(":")
-        ? dataProp.split(":").shift()
-        : dataProp;
-      const bindValue = dataProp.includes(".")
-        ? dataProp
-            .split(".")
-            .slice(1)
-            .reduce((obj, p) => obj[p], value)
-        : value;
+      const bindProp = dataProp.includes(':') ? dataProp.split(':').shift() : dataProp;
+      const bindValue = dataProp.includes('.') ? dataProp.split('.').slice(1).reduce((obj, p) => obj[p], value) : value;
       const target = [...this.selectAll(node.tagName)].find(el => el === node);
-      const isStateUpdate =
-        dataProp.includes(":") && this.isCustomElement(target);
+      const isStateUpdate = dataProp.includes(':') && this.isCustomElement(target);
 
-      isStateUpdate
-        ? target.setState({ [`${bindProp}`]: bindValue })
-        : this.isArray(bindValue)
-        ? (target[bindProp] = bindValue)
-        : (node.textContent = bindValue.toString());
+      isStateUpdate ? target.setState({[`${bindProp}`]: bindValue}) :
+      this.isArray(bindValue) ? target[bindProp] = bindValue : node.textContent = bindValue.toString();
     });
   }
 
   setState(newState) {
-    // traverse through newState to find the key-/value pairs to bind
-    Object.entries(newState).forEach(([key, value]) => {
-      this.state[key] =
-        this.isObject(this.state[key]) && this.isObject(value)
-          ? { ...this.state[key], ...value }
-          : value;
+    Object.entries(newState)
+    .forEach(([key, value]) => {
+      this.state[key] = this.isObject(this.state[key]) && this.isObject(value)? {...this.state[key], ...value} : value;
 
-      // whats the difference between the two?
       const bindKey = this.isObject(value) ? this.getBindKey(key, value) : key;
       const bindKeys = this.isArray(bindKey) ? bindKey : [bindKey];
 
@@ -55,40 +38,33 @@ export class CustomElement extends HTMLElement {
   }
 
   getBindKey(key, obj) {
-    return Object.keys(obj).map(k =>
-      this.isObject(obj[k])
-        ? `${key}.${this.getBindKey(k, obj[k])}`
-        : `${key}.${k}`
-    );
+    return Object.keys(obj).map(k => this.isObject(obj[k]) ? `${key}.${this.getBindKey(k, obj[k])}` : `${key}.${k}`);
   }
 
   isArray(arr) {
-    return Array.isArray(arr);
+    return Array.isArray(arr)
   }
 
   isObject(obj) {
-    return Object.prototype.toString.call(obj) === "[object Object]";
+    return Object.prototype.toString.call(obj) === '[object Object]';
   }
 
   select(selector) {
-    return this.shadowRoot
-      ? this.shadowRoot.querySelector(selector)
-      : this.querySelector(selector);
+    return this.shadowRoot ? this.shadowRoot.querySelector(selector) : this.querySelector(selector);
   }
 
   selectAll(selector) {
-    return this.shadowRoot
-      ? this.shadowRoot.querySelectorAll(selector)
-      : this.querySelectorAll(selector);
+    return this.shadowRoot ? this.shadowRoot.querySelectorAll(selector) : this.querySelectorAll(selector);
   }
 
   show() {
-    this.style.display = "";
-    this.removeAttribute("hidden");
+    this.style.display = '';
+    this.removeAttribute('hidden');
   }
 
   hide() {
-    this.style.display = "none";
-    this.setAttribute("hidden", "");
+    this.style.display = 'none';
+    this.setAttribute('hidden', '');
   }
 }
+
