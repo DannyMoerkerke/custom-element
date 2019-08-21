@@ -2,9 +2,13 @@
   "name": "@dannymoerkerke/custom-element",
   "version": "0.0.2",
   "description": "Web Components base class which provides data binding and convenience methods",
-  "main": "src/custom-element.js",
+  "main": "dist/custom-element.js",
+  "module": "dist/custom-element.es.js",
+  "unpkg": "dist/custom-element.umd.js",
+  
   "scripts": {
     "start": "ws -p 8080 --spa demo/index.html",
+    "build": "rollup -c",
     "test": "ws -p 8080 --spa test/index.html",
     "test:headless": "concurrently \"npm test\" \"sleep 1 && mocha-headless-chrome -f http://localhost:8080/\""
   },
@@ -18,7 +22,7 @@
     "access": "public"
   },
   "files": [
-    "/src"
+    "dist"
   ],
   "directories": {
     "test": "test"
@@ -30,6 +34,7 @@
     "local-web-server": "^2.6.1",
     "mocha": "^6.2.0",
     "mocha-headless-chrome": "^2.0.3",
+    "rollup": "^1.19.4",
     "sinon": "^7.3.1"
   }
 }
