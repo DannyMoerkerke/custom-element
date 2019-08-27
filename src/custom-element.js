@@ -50,11 +50,11 @@ export class CustomElement extends HTMLElement {
   }
 
   select(selector) {
-    return this.shadowRoot.querySelector(selector);
+    return this.shadowRoot ? this.shadowRoot.querySelector(selector) : this.querySelector(selector);
   }
 
   selectAll(selector) {
-    return this.shadowRoot.querySelectorAll(selector);
+    return this.shadowRoot ? this.shadowRoot.querySelectorAll(selector) : this.querySelectorAll(selector);
   }
 
   show() {
