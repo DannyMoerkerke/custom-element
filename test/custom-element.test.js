@@ -31,7 +31,7 @@ describe('custom-element', () => {
       title: 'custom-element test'
     });
 
-    const actual = element.shadowRoot.querySelector('#title').textContent;
+    const actual = element.select('#title').textContent;
     const expected = state.title;
 
     assert.equal(actual, expected);
@@ -47,10 +47,10 @@ describe('custom-element', () => {
       }
     });
 
-    const actual1 = element.shadowRoot.querySelector('#name').textContent;
+    const actual1 = element.select('#name').textContent;
     const expected1 = state.user.name;
 
-    const actual2 = element.shadowRoot.querySelector('#city').textContent;
+    const actual2 = element.select('#city').textContent;
     const expected2 = state.user.address.city;
 
     assert.equal(actual1, expected1);
@@ -66,7 +66,7 @@ describe('custom-element', () => {
 
     element.setState(state);
 
-    const dataRepeater = element.shadowRoot.querySelector('data-repeater');
+    const dataRepeater = element.select('data-repeater');
     const items = dataRepeater.shadowRoot.querySelectorAll('li');
 
     assert.equal(dataRepeater.data, state.data.items);
@@ -85,10 +85,10 @@ describe('custom-element', () => {
       }
     });
 
-    const actual1 = element.shadowRoot.querySelector('#name').textContent;
+    const actual1 = element.select('#name').textContent;
     const expected1 = state.user.name;
 
-    const actual2 = element.shadowRoot.querySelector('#city').textContent;
+    const actual2 = element.select('#city').textContent;
     const expected2 = state.user.address.city;
 
     assert.equal(actual1, expected1);
@@ -102,9 +102,9 @@ describe('custom-element', () => {
 
     element.setState(newState);
 
-    const actual3 = element.shadowRoot.querySelector('#name').textContent;
+    const actual3 = element.select('#name').textContent;
     const expected3 = newState.user.name;
-    const actual4 = element.shadowRoot.querySelector('#city').textContent;
+    const actual4 = element.select('#city').textContent;
 
     assert.equal(actual3, expected3);
     assert.equal(actual4, expected2);
@@ -144,13 +144,13 @@ describe('custom-element', () => {
 
   it('should select the correct DOM element', () => {
     const actual = element.select('#name');
-    const expected = element.shadowRoot.querySelector('#name');
+    const expected = element.select('#name');
 
     assert.equal(actual, expected);
   });
 
   it('should select the correct collection of DOM elements', () => {
-    const actual = element.shadowRoot.querySelectorAll('p');
+    const actual = element.selectAll('p');
     const expected = element.selectAll('p');
 
     assert.deepEqual(actual, expected);
@@ -169,5 +169,42 @@ describe('custom-element', () => {
 
     assert.equal(element.style.display, '');
     assert.equal(element.hasAttribute('hidden'), false)
+  });
+
+  it('should correctly set multiple styles on an element', () => {
+    element.setState({
+      title: 'custom-element test'
+    });
+
+    const heading = element.select('h3');
+    const styles = {
+      color: 'red',
+      textDecoration: 'underline',
+      textAlign: 'center'
+    };
+
+    element.style(heading, styles);
+
+    Object.entries(styles).forEach(([prop, style]) => {
+      assert.equal(heading.style[prop], style);
+    })
+  });
+
+  it('should correctly select multiple elements and set these as properties on the element', () => {
+    element.setState(state);
+
+    const title = element.select('#title');
+    const name = element.select('#name');
+    const city = element.select('#city');
+
+    element.multiSelect({
+      titleObj: '#title',
+      nameObj: '#name',
+      cityObj: '#city'
+    });
+
+    assert.deepEqual(element.titleObj, title);
+    assert.deepEqual(element.nameObj, name);
+    assert.deepEqual(element.cityObj, city);
   });
 });

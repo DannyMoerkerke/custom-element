@@ -57,6 +57,12 @@ export class CustomElement extends HTMLElement {
     return this.shadowRoot.querySelectorAll(selector);
   }
 
+  multiSelect(config) {
+    Object.entries(config).forEach(([prop, selector]) => {
+      this[prop] = this.select(selector);
+    });
+  }
+
   show() {
     this.style.display = '';
     this.removeAttribute('hidden');
@@ -65,6 +71,10 @@ export class CustomElement extends HTMLElement {
   hide() {
     this.style.display = 'none';
     this.setAttribute('hidden', '');
+  }
+
+  style(element, styles) {
+    Object.assign(element.style, styles);
   }
 }
 

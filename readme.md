@@ -34,8 +34,9 @@ for multiple levels of data binding. This is because internally the `setState` m
 `CustomElement` also provides some convenience methods:
 - `show()`, show the element
 - `hide()`, hide the element
-- `select(selector: string)`, select and element from the component's Shadow DOM (calls `querySelector` internally)
+- `select(selector: string)`, select an element from the component's Shadow DOM (calls `querySelector` internally)
 - `selectAll(selector: string)`, select multiple elements from the component's Shadow DOM (calls `querySelectorAll` internally)
+- `style(element: HTMLElement, styles: Object)`, set multiple styles on an element at once
 
 ### Demo
 To run the demo, run `npm install` once and then `npm start` and view the demo on
