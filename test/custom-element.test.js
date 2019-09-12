@@ -207,4 +207,22 @@ describe('custom-element', () => {
     assert.deepEqual(element.nameObj, name);
     assert.deepEqual(element.cityObj, city);
   });
+
+  it('should add a template to an element', () => {
+    element.setState(state);
+    const container = element.select('#container');
+
+    element.addTemplate(container, '#template');
+
+    assert.equal(element.shadowRoot.contains(element.select('#template-content')), true);
+  });
+
+  it('should add a template to an element and remove any existing elements', () => {
+    element.setState(state);
+    const container = element.select('#container');
+
+    element.addTemplate(container, '#template', true);
+
+    assert.equal(container.children.length, 1);
+  });
 });

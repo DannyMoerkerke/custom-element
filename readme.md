@@ -38,6 +38,39 @@ for multiple levels of data binding. This is because internally the `setState` m
 - `selectAll(selector: string)`, select multiple elements from the component's Shadow DOM (calls `querySelectorAll` internally)
 - `style(element: HTMLElement, styles: Object)`, set multiple styles on an element at once
 
+Example: 
+
+```
+const container = this.shadowRoot.querySelector('#container');
+
+this.style(container, {
+  display: 'flex'  
+  paddingBottom: '10px',
+  backgroundColor: '#ff0000'
+});
+```
+
+- `multiSelect({property: selector})`, selects an element in Shadow DOM and sets it to a property on the element
+
+Example:
+
+```
+this.multiSelect({
+  container: '#container',
+  header: 'h1'
+});
+```
+
+is equivalent to: 
+
+```
+this.container = this.shadowRoot.querySelector('#container');
+this.header = this.shadowRoot.querySelector('h1');
+```
+
+- `addTemplate(element: HTMLElement, selector: string, replaceContents?: boolean)`, adds the template selected by `selector` to
+the element, optionally replacing existing content so the added template will be the only child
+
 ### Demo
 To run the demo, run `npm install` once and then `npm start` and view the demo on
 [http://localhost:8080/](http://localhost:8080/)

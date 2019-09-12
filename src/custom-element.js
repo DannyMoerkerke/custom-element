@@ -76,5 +76,12 @@ export class CustomElement extends HTMLElement {
   style(element, styles) {
     Object.assign(element.style, styles);
   }
+
+  addTemplate(element, selector, replaceContents = false) {
+    const template = this.select(selector).content.cloneNode(true);
+    replaceContents ? element.innerHTML = '' : null;
+
+    element.appendChild(template);
+  }
 }
 

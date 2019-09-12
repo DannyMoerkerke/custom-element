@@ -1,6 +1,6 @@
 {
   "name": "@dannymoerkerke/custom-element",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Web Components base class which provides data binding and convenience methods",
   "main": "src/custom-element.js",
   "scripts": {
