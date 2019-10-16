@@ -183,7 +183,7 @@ describe('custom-element', () => {
       textAlign: 'center'
     };
 
-    element.style(heading, styles);
+    element.css(heading, styles);
 
     Object.entries(styles).forEach(([prop, style]) => {
       assert.equal(heading.style[prop], style);
