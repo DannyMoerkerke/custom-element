@@ -38,14 +38,14 @@ for multiple levels of data binding. This is because internally the `setState` m
 - `hide()`, hide the element
 - `select(selector: string)`, select an element from the component's Shadow DOM (calls `querySelector` internally)
 - `selectAll(selector: string)`, select multiple elements from the component's Shadow DOM (calls `querySelectorAll` internally)
-- `style(element: HTMLElement, styles: Object)`, set multiple styles on an element at once
+- `css(element: HTMLElement, styles: Object)`, set multiple styles on an element at once
 
 Example: 
 
 ```
 const container = this.shadowRoot.querySelector('#container');
 
-this.style(container, {
+this.css(container, {
   display: 'flex'  
   paddingBottom: '10px',
   backgroundColor: '#ff0000'
