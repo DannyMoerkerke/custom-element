@@ -73,7 +73,7 @@ export class CustomElement extends HTMLElement {
     this.setAttribute('hidden', '');
   }
 
-  style(element, styles) {
+  css(element, styles) {
     Object.assign(element.style, styles);
   }
 
