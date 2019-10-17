@@ -21,14 +21,14 @@ export class CustomElement extends HTMLElement {
       const isStateUpdate = dataProp.includes(':') && this.isCustomElement(target);
 
       isStateUpdate ? target.setState({[`${bindProp}`]: bindValue}) :
-      this.isArray(bindValue) ? target[bindProp] = bindValue : node.textContent = bindValue.toString();
+        this.isArray(bindValue) ? target[bindProp] = bindValue : node.textContent = bindValue.toString();
     });
   }
 
   setState(newState) {
     Object.entries(newState)
     .forEach(([key, value]) => {
-      this.state[key] = this.isObject(this.state[key]) && this.isObject(value)? {...this.state[key], ...value} : value;
+      this.state[key] = this.isObject(this.state[key]) && this.isObject(value) ? {...this.state[key], ...value} : value;
 
       const bindKey = this.isObject(value) ? this.getBindKey(key, value) : key;
       const bindKeys = this.isArray(bindKey) ? bindKey : [bindKey];
@@ -42,7 +42,7 @@ export class CustomElement extends HTMLElement {
   }
 
   isArray(arr) {
-    return Array.isArray(arr)
+    return Array.isArray(arr);
   }
 
   isObject(obj) {
@@ -63,18 +63,29 @@ export class CustomElement extends HTMLElement {
     });
   }
 
-  show() {
-    this.style.display = '';
-    this.removeAttribute('hidden');
+  show(els = null) {
+    const elems = els || this;
+    const elements = Array.isArray(elems) || NodeList.prototype.isPrototypeOf(elems) ? elems : [elems];
+
+    elements.forEach(element => {
+      element.style.display = '';
+      element.removeAttribute('hidden');
+    });
   }
 
-  hide() {
-    this.style.display = 'none';
-    this.setAttribute('hidden', '');
+  hide(els = null) {
+    const elems = els || this;
+    const elements = Array.isArray(elems) || NodeList.prototype.isPrototypeOf(elems) ? elems : [elems];
+
+    elements.forEach(element => {
+      element.style.display = 'none';
+      element.setAttribute('hidden', '');
+    });
   }
 
-  css(element, styles) {
-    Object.assign(element.style, styles);
+  css(els, styles) {
+    const elements = Array.isArray(els) ? els : [els];
+    elements.forEach(element => Object.assign(element.style, styles));
   }
 
   addTemplate(element, selector, replaceContents = false) {

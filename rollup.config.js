@@ -1,5 +1,8 @@
+import minify from 'rollup-plugin-babel-minify';
+
 export default {
     input: 'src/custom-element.js',
+    plugins: [minify()],
     output: [
         {
             file: 'dist/custom-element.js',

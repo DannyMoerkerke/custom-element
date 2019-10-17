@@ -160,7 +160,18 @@ describe('custom-element', () => {
     element.hide();
 
     assert.equal(element.style.display, 'none');
-    assert.equal(element.hasAttribute('hidden'), true)
+    assert.equal(element.hasAttribute('hidden'), true);
+  });
+
+  it('should hide multiple elements when "hide()" is called with arguments', () => {
+    const title = element.select('#title');
+    const name = element.select('#name');
+    element.hide([title, name]);
+
+    assert.equal(title.style.display, 'none');
+    assert.equal(title.hasAttribute('hidden'), true);
+    assert.equal(name.style.display, 'none');
+    assert.equal(name.hasAttribute('hidden'), true);
   });
 
   it('should display a hidden component when "show()" is called', () => {
@@ -169,6 +180,18 @@ describe('custom-element', () => {
 
     assert.equal(element.style.display, '');
     assert.equal(element.hasAttribute('hidden'), false)
+  });
+
+  it('should show multiple elements when "show()" is called with arguments', () => {
+    const title = element.select('#title');
+    const name = element.select('#name');
+    element.hide([title, name]);
+    element.show([title, name]);
+
+    assert.equal(title.style.display, '');
+    assert.equal(title.hasAttribute('hidden'), false);
+    assert.equal(name.style.display, '');
+    assert.equal(name.hasAttribute('hidden'), false);
   });
 
   it('should correctly set multiple styles on an element', () => {
@@ -187,6 +210,26 @@ describe('custom-element', () => {
 
     Object.entries(styles).forEach(([prop, style]) => {
       assert.equal(heading.style[prop], style);
+    })
+  });
+
+  it('should correctly set multiple styles on multiple elements', () => {
+    element.setState(state);
+
+    const title = element.select('#title');
+    const name = element.select('#name');
+
+    const styles = {
+      color: 'red',
+      textDecoration: 'underline',
+      textAlign: 'center'
+    };
+
+    element.css([title, name], styles);
+
+    Object.entries(styles).forEach(([prop, style]) => {
+      assert.equal(title.style[prop], style);
+      assert.equal(name.style[prop], style);
     })
   });
 

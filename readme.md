@@ -34,11 +34,15 @@ If `<web-component>` also extends `CustomElement` then its property `state.name`
 for multiple levels of data binding. This is because internally the `setState` method of `<web-component>` will be invoked.
 
 `CustomElement` also provides some convenience methods:
-- `show()`, show the element
-- `hide()`, hide the element
+- `show(elements?: HTMLElement[])`, show the element itself or multiple child elements when `elements` argument is given 
+- `hide(elements?: HTMLElement[])`, hide the element itself or multiple child elements when `elements` argument is given 
 - `select(selector: string)`, select an element from the component's Shadow DOM (calls `querySelector` internally)
 - `selectAll(selector: string)`, select multiple elements from the component's Shadow DOM (calls `querySelectorAll` internally)
-- `css(element: HTMLElement, styles: Object)`, set multiple styles on an element at once
+- `css(elements: HTMLElement | HTMLElement[], styles: Object)`, set multiple styles on one element or an array of elements at once
+- `addTemplate(element: HTMLElement, selector: string, replaceContents = false)`: add the contents of the `<template>` which
+is selected by `selector` to `element`. When `replaceContents` is `true` the existing contents of `element` will be replaced.
+
+*This only works for templates inside the shadowRoot of the component*
 
 Example: 
 
