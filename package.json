@@ -33,7 +33,7 @@
     "chai": "^4.2.0",
     "concurrently": "^4.1.0",
     "local-web-server": "^2.6.1",
-    "mocha": "^6.2.0",
+    "mocha": "^10.2.0",
     "mocha-headless-chrome": "^2.0.3",
     "rollup": "^1.19.4",
     "rollup-plugin-babel-minify": "^9.1.0",
